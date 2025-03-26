@@ -4,10 +4,12 @@ const htmlLeftAnalog = document.getElementById('leftDriveCtrl');
 const htmlPitch = document.getElementById('pitchDriveCtrl');
 const htmlYaw = document.getElementById('yawDriveCtrl');
 const htmlHeight = document.getElementById('heightDriveCtrl');
+const htmlLights = document.getElementById('lightsCtrl');
 
 // Create Gamepad Constants
-var gamepads
-var standardGamepad
+window.gamepads = null;
+window.standardGamepad = null;
+window.controllerCode = null;
 
 // Define current payload variables
 var currentPitch = 0;
@@ -15,6 +17,7 @@ var currentYaw = 0;
 var currentHeight = 0;
 var currentDriveR = 0;
 var currentDriveL = 0;
+var currentLightsStatus = false;
 
 // Check for initial gamepad connection
 var haveEvents = 'GamepadEvent' in window; // is there a case of gamepad usage in the window
@@ -45,7 +48,7 @@ function connectHandler(e) {
   addGamepad(e.gamepad);
 }
 
-export {gamepads};
+// export {gamepads};
 
 function addGamepad() {
   console.log("New gamepad detected")
@@ -63,6 +66,7 @@ function addGamepad() {
     } 
     document.getElementById("ctrlStatus").classList =  "btn btn-success";
     document.getElementById("robotStatus").innerHTML = "The " + gamepads[0].id + " has connected successfully";
+    socket.send("Controller Connected");
 }
 
 function disconnectHandler(e) {
@@ -164,5 +168,136 @@ function getDigital(dSignal){
         return "0"
     }
 }
+
+
+// Socket.io Variables
+// import { gamepads } from "./ctrl.js";
+const socket = io('http://127.0.0.1:5000'); // Init and connect socketio client
+
+socket.on('connect',function(){
+    // A sort of hand shake to tell the server to send Data 
+    // socket.send('ctrl');
+    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Connected";
+})
+
+socket.on('message',function(msg){
+    // Receiving data and asking for data back, will also serve as the controller feedback and accumulation  
+    // console.log("Step 2 receive Array data via WS")
+    if (msg.length != 0 ){
+        document.getElementById("displayVoltage").innerHTML = msg[0];
+        document.getElementById("displayTemp").innerHTML = msg[1];
+        document.getElementById("displayHumidity").innerHTML = msg[2];
+        document.getElementById("xTilt").innerHTML = msg[3];
+        document.getElementById("yTilt").innerHTML = msg[4];
+        document.getElementById("zTilt").innerHTML = msg[5];
+        document.getElementById("xAccel").innerHTML = msg[6];
+        document.getElementById("yAccel").innerHTML = msg[7];
+        document.getElementById("zAccel").innerHTML = msg[8];
+        document.getElementById("xMag").innerHTML = msg[9];
+        document.getElementById("yMag").innerHTML = msg[10];
+        document.getElementById("zMag").innerHTML = msg[11];
+        document.getElementById("gps").innerHTML = msg[12];
+        document.getElementById("range").innerHTML = msg[13];
+
+        // console.log("Step 3: Finished changing HTML Data")
+    } else {
+        alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
+    }
+    
+
+    if (gamepads[0].connected){
+      // Drive
+      currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
+      currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
+
+      // Payload Trim
+       if (gamepads[0].buttons[12].pressed){ // pitch up
+          if (currentPitch > 254){
+            currentPitch = 254;
+          } else {
+            currentPitch = currentPitch + .1;
+          }}
+
+       if (gamepads[0].buttons[13].pressed){ // pitch down
+        if (currentPitch < 1){
+          currentPitch = 1;
+        } else{
+          currentPitch = currentPitch - .1;
+        }}
+
+       if (gamepads[0].buttons[14].pressed){ // yaw left
+        if (currentYaw > 254){
+          currentYaw = 254;
+        } else {  
+          currentYaw = currentYaw + .1;
+        }}
+
+       if (gamepads[0].buttons[15].pressed){ // yaw right
+        if (currentYaw < 1){
+          currentYaw = 1;
+        } else {
+          currentYaw = currentYaw - .1;
+        }}
+      
+      // Payload Height
+      if (gamepads[0].buttons[4].pressed){ // increment height down
+        if (currentHeight > 254){
+          currentHeight = 254;
+        } else {
+          currentHeight = currentHeight + .1;
+        }}
+
+      if (gamepads[0].buttons[5].pressed){ // increment height up
+        if (currentHeight < 1){
+          currentHeight = 1;
+        } else {
+          currentHeight = currentHeight - .1;
+        }}
+
+      if (gamepads[0].buttons[8].pressed){ // Retract Arm
+        currentHeight = 0;
+        currentPitch = 0;
+        currentYaw = 0;
+        }
+      if (gamepads[0].buttons[9].pressed){ // Deploy Arm
+        currentHeight = 100;
+        currentPitch = 100;
+        currentYaw = 100;
+        }
+
+      // Lights
+      if (gamepads[0].buttons[2].pressed){ // Lights Ons
+        currentLightsStatus = true;
+        }
+      if (gamepads[0].buttons[0].pressed){ // Lights Off
+        currentLightsStatus = false;
+        }
+
+      htmlLeftAnalog.textContent = Math.round(currentDriveL);
+      htmlRightAnalog.textContent = Math.round(currentDriveR);
+      htmlPitch.textContent = Math.round(currentPitch);
+      htmlYaw.textContent = Math.round(currentYaw);
+      htmlHeight.textContent = Math.round(currentHeight);
+      htmlLights.textContent = currentLightsStatus;
+    // controllerCode to send to python
+    controllerCode = [
+      Math.round(currentDriveL), 
+      Math.round(currentDriveR), 
+      Math.round(currentPitch), 
+      Math.round(currentYaw), 
+      Math.round(currentHeight),
+      currentLightsStatus
+    ]; 
+    // console.log(controllerCode);
+    socket.send(controllerCode); // Send out to Receive more
+    // console.log("Socket sent data to server")
+  
+    }
+
+})
+
+socket.on('disconnect',function(){
+    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Disconnected";
+})
 
 

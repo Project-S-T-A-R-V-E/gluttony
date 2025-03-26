@@ -37,11 +37,9 @@ def handleMsg(msg):
                  imu.getMagXYZ()[0], imu.getMagXYZ()[1], imu.getMagXYZ()[2],
                  gps.getGPS()[0],gps.getGPS()[1],
                  rangeFinder.getRangeFinder()])
-    print ("Message Received: " + msg)
+    # print ("Message Received: " + msg)
 
 # Start Flask Server w/ Socketio
 if __name__ == "__main__":
     socket.run(app, host= '0.0.0.0', port=5000)
-    socket.send("go")
-
-    
+    # socket.send("go")
