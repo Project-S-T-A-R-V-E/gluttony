@@ -163,7 +163,21 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-8">
-                                    
+                                        <gmp-map 
+                                        center="43.4142989,-124.2301242"
+                                        zoom="4"
+                                        map-id="DEMO_MAP_ID"
+                                        style="height: 400px"
+                                        >
+                                        <gmp-advanced-marker
+                                        position="37.4220656,-122.0840897"
+                                        title="Mountain View, CA"
+                                        ></gmp-advanced-marker>
+                                        <gmp-advanced-marker
+                                        position="47.648994,-122.3503845"
+                                        title="Seattle, WA"
+                                        ></gmp-advanced-marker>
+                                        </gmp-map>
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +393,7 @@
 
     <!-- <script src="{{ url_for('static', filename='/js/graphs.js')}}"></script> -->
     
-    
+    <script src="https://maps.googleapis.com/maps/api/js?key=   KEY GOES HERE   &libraries=maps,marker" defer></script>
 </body>
 
 </html>
