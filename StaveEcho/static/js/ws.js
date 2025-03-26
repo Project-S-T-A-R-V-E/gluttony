@@ -1,3 +1,5 @@
+import { gamepads } from "./ctrl.js";
+
 // Socket.io Variables
 socket = io(); // Init socketio client
 socket.connect('http://127.0.0.1:5000'); // Connect to where its Serving
@@ -5,16 +7,16 @@ socket.connect('http://127.0.0.1:5000'); // Connect to where its Serving
 socket.on('connect',function(){
     // A sort of hand shake to tell the server to send Data 
     socket.send('ctrl');
-    document.getElementById("iostatus").innerHTML =  "WSIO Status: Connected";
+    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Connected";
 })
 
 socket.on('message',function(msg){
     // Receiving data and asking for data back, will also serve as the controller feedback and accumulation  
     // console.log("Step 2 receive Array data via WS")
     if (msg.length != 0 ){
-        document.getElementById("batteryVoltage").innerHTML = msg[0];
-        document.getElementById("temp").innerHTML = msg[1];
-        document.getElementById("humidity").innerHTML = msg[2];
+        document.getElementById("displayVoltage").innerHTML = msg[0];
+        document.getElementById("displayTemp").innerHTML = msg[1];
+        document.getElementById("displayHumidity").innerHTML = msg[2];
         document.getElementById("xTilt").innerHTML = msg[3];
         document.getElementById("yTilt").innerHTML = msg[4];
         document.getElementById("zTilt").innerHTML = msg[5];
@@ -29,7 +31,7 @@ socket.on('message',function(msg){
 
         // console.log("Step 3: Finished changing HTML Data")
     } else {
-        alert("Unexpected Arduino Signal... System my need to be reset. \nProceed With Caution.");
+        alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
     }
     
 
@@ -53,6 +55,6 @@ socket.on('message',function(msg){
 })
 
 socket.on('disconnect',function(){
-    document.getElementById("iostatus").innerHTML =  "WSIO Status: Failed";
+    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Failed";
     socket.send("150500000");
 })

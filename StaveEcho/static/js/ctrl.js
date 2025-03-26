@@ -10,11 +10,11 @@ var gamepads
 var standardGamepad
 
 // Define current payload variables
-currentPitch = 0;
-currentYaw = 0;
-currentHeight = 0;
-currentDriveR = 0;
-currentDriveL = 0;
+var currentPitch = 0;
+var currentYaw = 0;
+var currentHeight = 0;
+var currentDriveR = 0;
+var currentDriveL = 0;
 
 // Check for initial gamepad connection
 var haveEvents = 'GamepadEvent' in window; // is there a case of gamepad usage in the window
@@ -45,6 +45,8 @@ function connectHandler(e) {
   addGamepad(e.gamepad);
 }
 
+export {gamepads};
+
 function addGamepad() {
   console.log("New gamepad detected")
   gamepads = navigator.getGamepads();
@@ -72,7 +74,7 @@ function disconnectHandler(e) {
 
 function removeGamepad(gamepads) {
     console.log("Gamepad is now disconnected and removed from cache")
-  delete gamepads;
+  gamepads = null;
 }
 
 function updateStatus() {

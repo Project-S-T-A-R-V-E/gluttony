@@ -83,7 +83,7 @@
                 <ul class="metismenu" id="menu">
                     <!-- <li class="nav-label first"><b>Environment Sensors</b></li> -->
                     <li class="nav-label first"> Voltage <span class="badge badge-primary badge-pill"><span id = displayVoltage>---</span>V</span></li>
-                    <li class="nav-label first"> Humidity <span class="badge badge-primary badge-pill"><span id = displayHumidity>---</span>A</span></li>
+                    <li class="nav-label first"> Humidity <span class="badge badge-primary badge-pill"><span id = displayHumidity>---</span>%</span></li>
                     <li class="nav-label first"> Temperature <span class="badge badge-primary badge-pill"><span id = displayTemp>---</span>°C</span></li>
                 </ul>
 
@@ -204,12 +204,26 @@
                                             <div class="pt-4">
                                                 <div class="card-header">
                                                     <h4 class="card-title">General Data</h4>
+                                                    <!-- <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 class="card-title">Web Server</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="cpu-load-chart">
+                                                                <div id="cpu-load" class="cpu-load"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
                                                 </div>
-                                                <div class="card-body">
+                                                <ul class="metismenu">
+                                                    <li class="nav-label first"> GPS <span class="badge badge-primary badge-pill"><span id = gps>---</span></span></li>
+                                                    <li class="nav-label first"> Range Finder <span class="badge badge-primary badge-pill"><span id = range>---</span>M</span></li>
+                                                </ul>
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="voltage">
@@ -217,11 +231,11 @@
                                                 <div class="card-header">
                                                     <h4 class="card-title">Voltage Data</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="environment">
@@ -229,11 +243,11 @@
                                                 <div class="card-header">
                                                     <h4 class="card-title">Environment Data</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="imu-gryo">
@@ -241,11 +255,16 @@
                                                 <div class="card-header">
                                                     <h4 class="card-title">IMU GYRO</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <ul class="metismenu">
+                                                    <li class="nav-label first"> X-Tilt <span class="badge badge-primary badge-pill"><span id = xTilt>---</span>°</span></li>
+                                                    <li class="nav-label first"> Y-Tilt <span class="badge badge-primary badge-pill"><span id = yTilt>---</span>°</span></li>
+                                                    <li class="nav-label first"> Z-Tilt <span class="badge badge-primary badge-pill"><span id = zTilt>---</span>°</span></li>
+                                                </ul>
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="imu-mag">
@@ -253,11 +272,16 @@
                                                 <div class="card-header">
                                                     <h4 class="card-title">IMU-MAG</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <ul class="metismenu">
+                                                    <li class="nav-label first"> X-Mag <span class="badge badge-primary badge-pill"><span id = xMag>---</span>°</span></li>
+                                                    <li class="nav-label first"> Y-Mag <span class="badge badge-primary badge-pill"><span id = yMag>---</span>°</span></li>
+                                                    <li class="nav-label first"> Z-Mag <span class="badge badge-primary badge-pill"><span id = zMag>---</span>°</span></li>
+                                                </ul>
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="imu-accel">
@@ -265,11 +289,16 @@
                                                 <div class="card-header">
                                                     <h4 class="card-title">IMU ACCEL</h4>
                                                 </div>
-                                                <div class="card-body">
+                                                <ul class="metismenu">
+                                                    <li class="nav-label first"> X-Accel <span class="badge badge-primary badge-pill"><span id = xAccel>---</span>m/s²</span></li>
+                                                    <li class="nav-label first"> Y-Accel <span class="badge badge-primary badge-pill"><span id = yAccel>---</span>m/s²</span></li>
+                                                    <li class="nav-label first"> Z-Accel <span class="badge badge-primary badge-pill"><span id = zAccel>---</span>m/s²</span></li>
+                                                </ul>
+                                                <!-- <div class="card-body">
                                                     <div class="cpu-load-chart">
                                                         <div id="cpu-load" class="cpu-load"></div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -304,6 +333,11 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    
+    <!-- Websocket -->
+    <script src="{{ url_for('static', filename='/js/socketiomin4-0.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='/js/ws.js')}}"></script>
+    
     <!-- Required vendors -->
     <script src="{{ url_for('static', filename='/vendor/global/global.min.js')}}"></script>
     <script src="{{ url_for('static', filename='/js/quixnav-init.js')}}"></script>
@@ -336,8 +370,13 @@
     <script src="{{ url_for('static', filename='')}}/js/dashboard/dashboard-1.js"></script>
 
     <!-- CTRL Communication -->
-    <script src="{{ url_for('static', filename='/js/ctrl.js')}}"></script>
-    <script src="{{ url_for('static', filename='/js/ws.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='/js/ctrl.js')}}"></script>
+
+    
+
+    <!-- <script src="{{ url_for('static', filename='/js/graphs.js')}}"></script> -->
+    
+    
 </body>
 
 </html>

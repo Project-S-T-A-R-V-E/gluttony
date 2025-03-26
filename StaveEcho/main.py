@@ -32,9 +32,9 @@ def handleMsg(msg):
     socket.send([env.getVoltage(), 
                  env.getTemp(), 
                  env.getHumidity(),
-                 imu.getPYR[0], imu.getPYR[1], imu.getPYR[2], 
-                 imu.getAccelXYZ[0], imu.getAccelXYZ[1], imu.getAccelXYZ[2], 
-                 imu.getMagXYZ[0], imu.getMagXYZ[1], imu.getMagXYZ[2],
+                 imu.getPYR()[0], imu.getPYR()[1], imu.getPYR()[2], 
+                 imu.getAccelXYZ()[0], imu.getAccelXYZ()[1], imu.getAccelXYZ()[2], 
+                 imu.getMagXYZ()[0], imu.getMagXYZ()[1], imu.getMagXYZ()[2],
                  gps.getGPS()[0],gps.getGPS()[1],
                  rangeFinder.getRangeFinder()])
     print ("Message Received: " + msg)
@@ -42,5 +42,6 @@ def handleMsg(msg):
 # Start Flask Server w/ Socketio
 if __name__ == "__main__":
     socket.run(app, host= '0.0.0.0', port=5000)
+    socket.send("go")
 
     
