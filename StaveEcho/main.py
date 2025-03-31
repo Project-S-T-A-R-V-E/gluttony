@@ -6,15 +6,18 @@ import envSensor as env
 import imu
 import gps
 import rangeFinder
+import os
 
 # Flask Set up
 app = Flask(__name__)
 socket = SocketIO(app)
 
 # Main page
+# export GOOGLE_MAPS_API_KEY="your_api_key_here"
 @app.route("/")
 def main():
-    return render_template("STARVE.html")
+    api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+    return render_template("STARVE.html", api_key=api_key)
 
 # WebSocket Events
 
