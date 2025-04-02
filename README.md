@@ -28,3 +28,12 @@
     ```bash
     sudo python3 main.py
     ```
+
+## Resource
+- [How to use Raspberry Pi GPIO pins with Ubuntu](https://ubuntu.com/tutorials/gpio-on-raspberry-pi)
+- [How to Use NEO 6M GPS with RPI (Begginer Friendly)](https://www.geekering.com/categories/embedded-sytems/raspberry-pi/rubenmarques/how-to-use-neo-6m-gps-with-rpi-begginer-friendly/)
+- [How to control a servo motor with Raspberry Pi and servo driver "PCA9685"](https://python-academia.com/en/raspberrypi-pca9685-servo/)
+- [Adafruit ServoKit Library](https://docs.circuitpython.org/projects/servokit/en/latest/)
+- [Miniature Linear Motion Series · L12](https://www.actuonix.com/assets/images/datasheets/ActuonixL12Datasheet.pdf)
+- [Raspberry Pi Tutorial: How to Use the DHT-22](https://www.instructables.com/Raspberry-Pi-Tutorial-How-to-Use-the-DHT-22/)
+- [icm20948-python/](https://github.com/pimoroni/icm20948-python/tree/main)
