@@ -1,4 +1,5 @@
 import subprocess
+import pynmea2
 
 def getGPS():
 
@@ -14,7 +15,11 @@ def getGPS():
         # Continuously read the output line by line
         for line in process.stdout:
             if line.startswith("$GPGGA"):  # Check if the line starts with $GPGGA
-                return line.strip()  # Print the line
+                # Parse the NMEA sentence
+                msg = pynmea2.parse(line)
+                latitude = msg.latitude
+                longitude = msg.longitude
+                return latitude, longitude
                 break  # Exit the loop after the first match
 
         # Wait for the process to complete (optional, if you'd like to clean up)
@@ -22,3 +27,5 @@ def getGPS():
 
     except Exception as e:
         print(f"An error occurred: {e}")
+
+print(getGPS())
