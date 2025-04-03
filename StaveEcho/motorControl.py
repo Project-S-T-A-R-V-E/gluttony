@@ -1,5 +1,5 @@
-def moveMotors():
+def moveMotors(): # TODO Move motors
     print("OK Moving")
     
-def stopMotors():
+def stopMotors(): #TODO Stop motors
     print("STOP Motors")
