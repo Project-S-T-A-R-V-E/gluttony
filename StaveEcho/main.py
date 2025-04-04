@@ -21,7 +21,7 @@ def main():
     print("server started")
     # Dynamically get the host IP address
     server_ip = socket.gethostbyname(socket.gethostname())  # Use the standard library socket module
-    print("Server IP Address: " + server_ip)
+    # print("Server IP Address: " + server_ip)
     return render_template("STARVE.html", api_key=api_key, server_ip=server_ip)
 
 # WebSocket Events
@@ -44,7 +44,7 @@ def handleMsg(msg):
                    imu.getMagXYZ()[0], imu.getMagXYZ()[1], imu.getMagXYZ()[2],
                    # gps.getGPS()[0], gps.getGPS()[1],
                    rangeFinder.getRangeFinder()])
-    print("Message Received: " + msg)
+    # print("Message Received: " + msg)
 
 # Start Flask Server w/ SocketIO
 if __name__ == "__main__":
