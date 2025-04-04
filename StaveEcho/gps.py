@@ -19,6 +19,7 @@ def getGPS():
                 msg = pynmea2.parse(line)
                 latitude = msg.latitude
                 longitude = msg.longitude
+                print(f"Latitude: {latitude}, Longitude: {longitude}")
                 return [latitude, longitude]
                 break  # Exit the loop after the first match
 
