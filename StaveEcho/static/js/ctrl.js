@@ -173,7 +173,7 @@ function getDigital(dSignal){
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
     const serverIp = "{{ server_ip }}";
-    const socket = io(`http://${serverIp}:5000`);
+    const socket = io(`http://192.168.1.45:5000`);
 socket.on('connect',function(){
     // A sort of hand shake to tell the server to send Data 
     // socket.send('ctrl');
