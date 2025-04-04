@@ -19,8 +19,9 @@ print ("Flask SocketIO initialized")
 def main():
     api_key = os.getenv("GOOGLE_MAPS_API_KEY")
     print("server started")
-    return render_template("STARVE.html", api_key=api_key)
-    
+# Dynamically get the host IP address
+    server_ip = socket.gethostbyname(socket.gethostname())
+    return render_template("STARVE.html", api_key=api_key, server_ip=server_ip)    
 
 # WebSocket Events
 
