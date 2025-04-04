@@ -10,7 +10,7 @@ import os
 
 # Flask Set up
 app = Flask(__name__)
-socket = SocketIO(app)
+socket = SocketIO(app, cors_allowed_origins="*")
 
 # Main page
 # export GOOGLE_MAPS_API_KEY="your_api_key_here"
