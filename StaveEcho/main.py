@@ -11,13 +11,16 @@ import os
 # Flask Set up
 app = Flask(__name__)
 socket = SocketIO(app, cors_allowed_origins="*")
+print ("Flask SocketIO initialized")
 
 # Main page
 # export GOOGLE_MAPS_API_KEY="your_api_key_here"
 @app.route("/")
 def main():
     api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+    print("server started")
     return render_template("STARVE.html", api_key=api_key)
+    
 
 # WebSocket Events
 
@@ -40,7 +43,7 @@ def handleMsg(msg):
                  imu.getMagXYZ()[0], imu.getMagXYZ()[1], imu.getMagXYZ()[2],
                 #  gps.getGPS()[0],gps.getGPS()[1],
                  rangeFinder.getRangeFinder()])
-    # print ("Message Received: " + msg)
+    print ("Message Received: " + msg)
 
 # Start Flask Server w/ Socketio
 if __name__ == "__main__":
