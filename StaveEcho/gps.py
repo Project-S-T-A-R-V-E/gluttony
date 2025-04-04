@@ -29,8 +29,8 @@ def getGPS():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-result = getGPS()
-if result:
-    print(result[0])
-else:
-    print("No GPS data available.")
+# result = getGPS()
+# if result:
+#     print(result[0])
+# else:
+#     print("No GPS data available.")
