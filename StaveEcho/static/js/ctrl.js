@@ -5,6 +5,8 @@ const htmlPitch = document.getElementById('pitchDriveCtrl');
 const htmlYaw = document.getElementById('yawDriveCtrl');
 const htmlHeight = document.getElementById('heightDriveCtrl');
 const htmlLights = document.getElementById('lightsCtrl');
+const mapElement = document.getElementById("map");
+
 
 // Create Gamepad Constants
 window.gamepads = null;
@@ -206,7 +208,6 @@ socket.on('message',function(msg){
     } else {
         alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
     }
-  
     
     gamepads = navigator.getGamepads(); // Refresh the gamepads array
     if (gamepads[0] && gamepads[0].connected){
@@ -298,6 +299,7 @@ socket.on('message',function(msg){
   
     }
 
+    mapElement.setAttribute("center", `${msg[14]},${msg[15]}`);
 })
 
 socket.on('disconnect',function(){
