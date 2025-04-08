@@ -110,7 +110,9 @@ async def update_imu():
 async def update_gps():
     global gps_lat, gps_lon
     while True:
-        gps_lat, gps_lon = gps.getGPS()
+        new_lat, new_lon = gps.getGPS()
+        if new_lat is not None and new_lon is not None:
+            gps_lat, gps_lon = new_lat, new_lon
         await asyncio.sleep(1)
 
 
