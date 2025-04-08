@@ -128,5 +128,6 @@ async def main():
         update_imu(),
         update_gps()
     )
+    print("sensors updated")
 
 asyncio.run(main())
