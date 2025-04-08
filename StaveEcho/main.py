@@ -37,8 +37,8 @@ def handleDisconnect():
 def handleMsg(msg):
     # Step 1: Send Sensor Data over WebSocket
     socketio.send([env.getVoltage(), 
-                   env.getTemp(), 
-                   env.getHumidity(),
+                   env.getInternalTemp(), env.getInternalHumidity(),
+                   env.getExternalTemp(), env.getExternalHumidity(),
                    imu.getPYR()[0], imu.getPYR()[1], imu.getPYR()[2], 
                    imu.getAccelXYZ()[0], imu.getAccelXYZ()[1], imu.getAccelXYZ()[2], 
                    imu.getMagXYZ()[0], imu.getMagXYZ()[1], imu.getMagXYZ()[2],

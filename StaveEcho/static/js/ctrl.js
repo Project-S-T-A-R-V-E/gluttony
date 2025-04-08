@@ -185,19 +185,22 @@ socket.on('message',function(msg){
     // console.log("Step 2 receive Array data via WS")
     if (msg.length != 0 ){
         document.getElementById("displayVoltage").innerHTML = msg[0];
-        document.getElementById("displayTemp").innerHTML = msg[1];
-        document.getElementById("displayHumidity").innerHTML = msg[2];
-        document.getElementById("xTilt").innerHTML = msg[3];
-        document.getElementById("yTilt").innerHTML = msg[4];
-        document.getElementById("zTilt").innerHTML = msg[5];
-        document.getElementById("xAccel").innerHTML = msg[6];
-        document.getElementById("yAccel").innerHTML = msg[7];
-        document.getElementById("zAccel").innerHTML = msg[8];
-        document.getElementById("xMag").innerHTML = msg[9];
-        document.getElementById("yMag").innerHTML = msg[10];
-        document.getElementById("zMag").innerHTML = msg[11];
-        document.getElementById("gps").innerHTML = msg[12];
-        document.getElementById("range").innerHTML = msg[13];
+        document.getElementById("displayInternalTemp").innerHTML = msg[1];
+        document.getElementById("displayInternalHumidity").innerHTML = msg[2];
+        document.getElementById("displayExternalTemp").innerHTML = msg[3];
+        document.getElementById("displayExternalHumidity").innerHTML = msg[4];
+        document.getElementById("xTilt").innerHTML = msg[5];
+        document.getElementById("yTilt").innerHTML = msg[6];
+        document.getElementById("zTilt").innerHTML = msg[7];
+        document.getElementById("xAccel").innerHTML = msg[8];
+        document.getElementById("yAccel").innerHTML = msg[9];
+        document.getElementById("zAccel").innerHTML = msg[10];
+        document.getElementById("xMag").innerHTML = msg[11];
+        document.getElementById("yMag").innerHTML = msg[12];
+        document.getElementById("zMag").innerHTML = msg[13];
+        document.getElementById("gpsLat").innerHTML = msg[14];
+        document.getElementById("gpsLon").innerHTML = msg[15];
+        document.getElementById("range").innerHTML = msg[16];
 
         // console.log("Step 3: Finished changing HTML Data")
     } else {
