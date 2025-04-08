@@ -70,7 +70,7 @@ def handleMsg(msg):
 if __name__ == "__main__":
     # Start the async tasks in a separate thread
     def start_async_tasks():
-        asyncio.run(main_async_tasks())
+        asyncio.run(updateAllSensors())
 
     from threading import Thread
     Thread(target=start_async_tasks, daemon=True).start()
@@ -127,7 +127,7 @@ async def update_gps():
 
 
 # Run both coroutines concurrently
-async def main():
+async def updateAllSensors():
     await asyncio.gather(
         update_voltage(),
         update_internal_temp(),
@@ -138,4 +138,3 @@ async def main():
         update_gps()
     )
 
-asyncio.run(main())
