@@ -24,4 +24,4 @@ def getGPS():
     # except Exception as e:
     #     print(f"An error occurred: {e}")
 
-    return 0,1
+    return [0,1]
