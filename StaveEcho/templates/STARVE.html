@@ -164,18 +164,23 @@
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-8">
                                         <gmp-map 
-                                        center="43.4142989,-124.2301242"
-                                        zoom="4"
+                                        id="map"
+                                        center="0,0"
+                                        zoom="0"
                                         map-id="DEMO_MAP_ID"
                                         style="height: 400px"
+                                        controls="false"
                                         >
+                                        
                                         <gmp-advanced-marker
+                                        id = currentPosition
                                         position="37.4220656,-122.0840897"
-                                        title="Mountain View, CA"
+                                        title="Gluttony"
                                         ></gmp-advanced-marker>
                                         <gmp-advanced-marker
+                                        id =targetPosition
                                         position="47.648994,-122.3503845"
-                                        title="Seattle, WA"
+                                        title="Target Position"
                                         ></gmp-advanced-marker>
                                         </gmp-map>
                                     </div>
