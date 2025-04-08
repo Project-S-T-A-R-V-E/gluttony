@@ -73,7 +73,6 @@ async def update_voltage():
     global voltage
     while True:
         voltage = env.getVoltage()
-        print(voltage)
         await asyncio.sleep(0.1)
 
 async def update_internal_temp():
