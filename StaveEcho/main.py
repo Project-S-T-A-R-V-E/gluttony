@@ -113,7 +113,7 @@ async def update_gps():
         new_lat, new_lon = gps.getGPS()
         if new_lat is not None and new_lon is not None:
             gps_lat, gps_lon = new_lat, new_lon
-        await asyncio.sleep(1)
+        await asyncio.sleep(60)
 
 
 
