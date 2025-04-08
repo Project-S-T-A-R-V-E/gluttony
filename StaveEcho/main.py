@@ -111,7 +111,7 @@ async def update_gps():
     global gps_lat, gps_lon
     while True:
         gps_lat, gps_lon = gps.getGPS()
-        await asyncio.sleep(2)
+        await asyncio.sleep(10)
 
 
 
