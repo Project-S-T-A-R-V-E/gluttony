@@ -17,7 +17,8 @@ def getGPS(): # returns lat,lon
             if line.startswith("$GPGGA"):  # Check if the line starts with $GPGGA
                 msg = pynmea2.parse(line.strip())  # Parse the NMEA sentence
                 print(float(msg.latitude), float(msg.longitude))
-                return float(msg.latitude), float(msg.longitude)  # Return latitude and longitude
+                return 0,1
+                # return float(msg.latitude), float(msg.longitude)  # Return latitude and longitude
                 break  # Exit the loop after the first match
 
         # Wait for the process to complete (optional, if you'd like to clean up)
