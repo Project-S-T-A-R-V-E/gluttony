@@ -17,6 +17,6 @@ def getIMU(): #TODO: Implement actual sensor reading
         return None
 
 while True:
-    print(getIMU())
+    print(str(getIMU()))
     time.sleep(2)
 
