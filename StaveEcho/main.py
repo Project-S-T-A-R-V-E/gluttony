@@ -102,10 +102,8 @@ async def update_external_humidity():
 async def update_imu():
     global pyr_x, pyr_y, pyr_z, accel_x, accel_y, accel_z, mag_x, mag_y, mag_z
     while True:
-        pyr_x, pyr_y, pyr_z = imu.getPYR()
-        accel_x, accel_y, accel_z = imu.getAccelXYZ()
-        mag_x, mag_y, mag_z = imu.getMagXYZ()
-        await asyncio.sleep(0.1)
+        pyr_x, pyr_y, pyr_z, accel_x, accel_y, accel_z, mag_x, mag_y, mag_z = imu.getimu()
+        await asyncio.sleep(0.4)
 
 async def update_gps():
     global gps_lat, gps_lon
