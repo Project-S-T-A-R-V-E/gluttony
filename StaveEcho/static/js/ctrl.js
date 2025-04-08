@@ -6,6 +6,8 @@ const htmlYaw = document.getElementById('yawDriveCtrl');
 const htmlHeight = document.getElementById('heightDriveCtrl');
 const htmlLights = document.getElementById('lightsCtrl');
 const mapElement = document.getElementById("map");
+const mapCurrentPosition = document.getElementById("currentPosition");
+const mapTargetPosition = document.getElementById("targetPosition");
 
 
 // Create Gamepad Constants
@@ -300,7 +302,10 @@ socket.on('message',function(msg){
     }
 
     mapElement.setAttribute("center", `${msg[14]},${msg[15]}`);
-})
+    mapCurrentPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
+    // mapTargetPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
+
+  })
 
 socket.on('disconnect',function(){
     document.getElementById("robotStatus").innerHTML =  "WSIO Status: Disconnected";
