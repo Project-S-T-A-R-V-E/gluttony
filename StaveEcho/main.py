@@ -66,17 +66,7 @@ def handleMsg(msg):
                    range_finder])
     # print("Message Received: " + msg)
 
-# Start Flask Server w/ SocketIO
-if __name__ == "__main__":
-    # Start the async tasks in a separate thread
-    def start_async_tasks():
-        asyncio.run(updateAllSensors())
 
-    from threading import Thread
-    Thread(target=start_async_tasks, daemon=True).start()
-
-    # Run the Flask-SocketIO server
-    socketio.run(app, host=server_ip, port=5000)
 
 # Async updates
 async def update_voltage():
@@ -138,3 +128,14 @@ async def updateAllSensors():
         update_gps()
     )
 
+# Start Flask Server w/ SocketIO
+if __name__ == "__main__":
+    # Start the async tasks in a separate thread
+    def start_async_tasks():
+        asyncio.run(updateAllSensors())
+
+    from threading import Thread
+    Thread(target=start_async_tasks, daemon=True).start()
+
+    # Run the Flask-SocketIO server
+    socketio.run(app, host=server_ip, port=5000)
