@@ -12,6 +12,7 @@ def getAccelXYZ(): #TODO: Implement actual sensor reading
 def getMagXYZ(): #TODO: Implement actual sensor reading
     random.seed(time.time())
     return [random.randint(0, 100), random.randint(0, 100), random.randint(0, 100)]
+#git test
 
 
 
