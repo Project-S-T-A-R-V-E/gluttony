@@ -1,4 +1,5 @@
 import subprocess
+import pynmea2
 
 def getGPS():
 
