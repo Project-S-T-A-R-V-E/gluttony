@@ -302,6 +302,7 @@ socket.on('message',function(msg){
     }
 
     mapElement.setAttribute("center", `${msg[14]},${msg[15]}`);
+    mapElement.setAttribute("zoom", `15`);
     mapCurrentPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
     // mapTargetPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
 
