@@ -1,12 +1,12 @@
 import random
 import time
-import icm20948 
+from icm20948 import ICM20948
 
 def getIMU(): #TODO: Implement actual sensor reading
     # random.seed(time.time())
     # return [random.randint(0, 100), random.randint(0, 100), random.randint(0, 100)]
     try:
-        sensor = icm20948.ICM20948()
+        sensor = ICM20948()
         pyr = sensor.read_gyro_data()
         accel = sensor.read_accel_data()
         mag = sensor.read_mag_data()
