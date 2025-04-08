@@ -1,7 +1,7 @@
 import subprocess
+import pynmea2
 
-def getGPS():
-
+def getGPS():  # returns lat, lon
     try:
         # Run the command with sudo privileges
         process = subprocess.Popen(
@@ -14,11 +14,14 @@ def getGPS():
         # Continuously read the output line by line
         for line in process.stdout:
             if line.startswith("$GPGGA"):  # Check if the line starts with $GPGGA
-                return line.strip()  # Print the line
-                break  # Exit the loop after the first match
+                msg = pynmea2.parse(line.strip())  # Parse the NMEA sentence
+                print(float(msg.latitude), float(msg.longitude))
+                return float(msg.latitude), float(msg.longitude)  # Return latitude and longitude
 
-        # Wait for the process to complete (optional, if you'd like to clean up)
-        process.terminate()
+        # If no valid GPS data is found, return a default value
+        return None, None
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None, None  # Return None for both latitude and longitude in case of an error
+

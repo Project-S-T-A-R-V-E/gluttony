@@ -172,8 +172,8 @@ function getDigital(dSignal){
 
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
-const socket = io('http://127.0.0.1:5000'); // Init and connect socketio client
-
+    const serverIp = "{{ server_ip }}";
+    const socket = io(`http://192.168.1.45:5000`);
 socket.on('connect',function(){
     // A sort of hand shake to tell the server to send Data 
     // socket.send('ctrl');
@@ -185,27 +185,31 @@ socket.on('message',function(msg){
     // console.log("Step 2 receive Array data via WS")
     if (msg.length != 0 ){
         document.getElementById("displayVoltage").innerHTML = msg[0];
-        document.getElementById("displayTemp").innerHTML = msg[1];
-        document.getElementById("displayHumidity").innerHTML = msg[2];
-        document.getElementById("xTilt").innerHTML = msg[3];
-        document.getElementById("yTilt").innerHTML = msg[4];
-        document.getElementById("zTilt").innerHTML = msg[5];
-        document.getElementById("xAccel").innerHTML = msg[6];
-        document.getElementById("yAccel").innerHTML = msg[7];
-        document.getElementById("zAccel").innerHTML = msg[8];
-        document.getElementById("xMag").innerHTML = msg[9];
-        document.getElementById("yMag").innerHTML = msg[10];
-        document.getElementById("zMag").innerHTML = msg[11];
-        document.getElementById("gps").innerHTML = msg[12];
-        document.getElementById("range").innerHTML = msg[13];
+        document.getElementById("displayInternalTemp").innerHTML = msg[1];
+        document.getElementById("displayInternalHumidity").innerHTML = msg[2];
+        document.getElementById("displayExternalTemp").innerHTML = msg[3];
+        document.getElementById("displayExternalHumidity").innerHTML = msg[4];
+        document.getElementById("xTilt").innerHTML = msg[5];
+        document.getElementById("yTilt").innerHTML = msg[6];
+        document.getElementById("zTilt").innerHTML = msg[7];
+        document.getElementById("xAccel").innerHTML = msg[8];
+        document.getElementById("yAccel").innerHTML = msg[9];
+        document.getElementById("zAccel").innerHTML = msg[10];
+        document.getElementById("xMag").innerHTML = msg[11];
+        document.getElementById("yMag").innerHTML = msg[12];
+        document.getElementById("zMag").innerHTML = msg[13];
+        document.getElementById("gpsLat").innerHTML = msg[14];
+        document.getElementById("gpsLon").innerHTML = msg[15];
+        document.getElementById("range").innerHTML = msg[16];
 
         // console.log("Step 3: Finished changing HTML Data")
     } else {
         alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
     }
+  
     
-
-    if (gamepads[0].connected){
+    gamepads = navigator.getGamepads(); // Refresh the gamepads array
+    if (gamepads[0] && gamepads[0].connected){
       // Drive
       currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
       currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
@@ -288,7 +292,7 @@ socket.on('message',function(msg){
       Math.round(currentHeight),
       currentLightsStatus
     ]; 
-    // console.log(controllerCode);
+    console.log(controllerCode);
     socket.send(controllerCode); // Send out to Receive more
     // console.log("Socket sent data to server")
   

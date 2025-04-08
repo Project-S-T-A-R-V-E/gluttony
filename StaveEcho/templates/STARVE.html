@@ -83,8 +83,8 @@
                 <ul class="metismenu" id="menu">
                     <!-- <li class="nav-label first"><b>Environment Sensors</b></li> -->
                     <li class="nav-label first"> Voltage <span class="badge badge-primary badge-pill"><span id = displayVoltage>---</span>V</span></li>
-                    <li class="nav-label first"> Humidity <span class="badge badge-primary badge-pill"><span id = displayHumidity>---</span>%</span></li>
-                    <li class="nav-label first"> Temperature <span class="badge badge-primary badge-pill"><span id = displayTemp>---</span>°C</span></li>
+                    <li class="nav-label first"> Humidity IN/EX <span class="badge badge-primary badge-pill"><span id = displayInternalHumidity>---</span>%</span><br><span class="badge badge-primary badge-pill"><span id = displayExternalHumidity>---</span>%</span></li>
+                    <li class="nav-label first"> Temperature IN/EX <span class="badge badge-primary badge-pill"><span id = displayInternalTemp>---</span>°C</span><br><span class="badge badge-primary badge-pill"><span id = displayExternalTemp>---</span>°C</span></li>
                 </ul>
 
                 <ul class="metismenu" id="menu">
@@ -231,7 +231,7 @@
                                                     </div> -->
                                                 </div>
                                                 <ul class="metismenu">
-                                                    <li class="nav-label first"> GPS <span class="badge badge-primary badge-pill"><span id = gps>---</span></span></li>
+                                                    <li class="nav-label first"> GPS LAT/LON <span class="badge badge-primary badge-pill"><span id = gpsLat>---</span></span><span class="badge badge-primary badge-pill"><span id = gpsLon>---</span></span></li>
                                                     <li class="nav-label first"> Range Finder <span class="badge badge-primary badge-pill"><span id = range>---</span>M</span></li>
                                                 </ul>
                                                 <!-- <div class="card-body">
@@ -393,7 +393,7 @@
 
     <!-- <script src="{{ url_for('static', filename='/js/graphs.js')}}"></script> -->
     
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFKdqMOCctQuk9q7Dc3g2pko7hqsntRVM&libraries=maps,marker" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=maps,marker" defer></script>
 </body>
 
 </html>
