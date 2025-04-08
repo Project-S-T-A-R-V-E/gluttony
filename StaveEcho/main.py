@@ -7,6 +7,26 @@ import imu
 import gps
 import rangeFinder
 import os
+import asyncio
+
+voltage = 0
+internal_temp = 0
+internal_humidity = 0
+external_temp = 0
+external_humidity = 0
+pyr_x = 0
+pyr_y = 0
+pyr_z = 0
+accel_x = 0
+accel_y = 0
+accel_z = 0
+mag_x = 0
+mag_y = 0
+mag_z = 0
+gps_lat = 0
+gps_lon = 0
+range_finder = 0
+
 
 # Flask Set up
 app = Flask(__name__)
@@ -51,28 +71,6 @@ if __name__ == "__main__":
     socketio.run(app, host=server_ip, port=5000)
 
 # Async updates
-import asyncio
-
-theValue = 0
-
-voltage = 0
-internal_temp = 0
-internal_humidity = 0
-external_temp = 0
-external_humidity = 0
-pyr_x = 0
-pyr_y = 0
-pyr_z = 0
-accel_x = 0
-accel_y = 0
-accel_z = 0
-mag_x = 0
-mag_y = 0
-mag_z = 0
-gps_lat = 0
-gps_lon = 0
-range_finder = 0
-
 async def update_voltage():
     global voltage
     while True:
