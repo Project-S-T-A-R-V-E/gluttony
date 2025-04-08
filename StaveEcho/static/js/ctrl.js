@@ -291,7 +291,7 @@ socket.on('message',function(msg){
       Math.round(currentHeight),
       currentLightsStatus
     ]; 
-    // console.log(controllerCode);
+    console.log(controllerCode);
     socket.send(controllerCode); // Send out to Receive more
     // console.log("Socket sent data to server")
   
