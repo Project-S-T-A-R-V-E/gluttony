@@ -7,11 +7,10 @@ def getIMU(): #TODO: Implement actual sensor reading
     # return [random.randint(0, 100), random.randint(0, 100), random.randint(0, 100)]
     try:
         sensor = ICM20948(i2c_addr=0x69)
-        pyr = sensor.read_gyro_data()
-        accel = sensor.read_accel_data()
-        mag = sensor.read_mag_data()
+        ax, ay, az, gx, gy, gz = sensor.read_accelerometer_gyro_data()
+        mx, my, mz = sensor.read_magnetometer_data()()
         # return "bruh"
-        return (pyr['x'], pyr['y'], pyr['z'], accel['x'], accel['y'], accel['z'], mag['x'], mag['y'], mag['z'])
+        return (ax, ay, az, gx, gy, gz, mx, my, mz)
     except OSError as e:
         print(f"Error accessing the sensor: {e}")
         return None
