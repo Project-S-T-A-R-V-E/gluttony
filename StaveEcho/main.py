@@ -68,6 +68,14 @@ def handleMsg(msg):
 
 # Start Flask Server w/ SocketIO
 if __name__ == "__main__":
+    # Start the async tasks in a separate thread
+    def start_async_tasks():
+        asyncio.run(main_async_tasks())
+
+    from threading import Thread
+    Thread(target=start_async_tasks, daemon=True).start()
+
+    # Run the Flask-SocketIO server
     socketio.run(app, host=server_ip, port=5000)
 
 # Async updates
