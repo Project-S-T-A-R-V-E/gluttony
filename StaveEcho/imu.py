@@ -6,7 +6,7 @@ def getIMU(): #TODO: Implement actual sensor reading
     # random.seed(time.time())
     # return [random.randint(0, 100), random.randint(0, 100), random.randint(0, 100)]
     try:
-        sensor = ICM20948()
+        sensor = ICM20948(i2c_addr=0x69)
         pyr = sensor.read_gyro_data()
         accel = sensor.read_accel_data()
         mag = sensor.read_mag_data()
