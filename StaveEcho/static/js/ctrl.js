@@ -206,9 +206,10 @@ socket.on('message',function(msg){
     } else {
         alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
     }
+  
     
-
-    if (gamepads[0].connected){
+    gamepads = navigator.getGamepads(); // Refresh the gamepads array
+    if (gamepads[0] && gamepads[0].connected){
       // Drive
       currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
       currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
