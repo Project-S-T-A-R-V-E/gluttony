@@ -177,7 +177,7 @@ function getDigital(dSignal){
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
     const serverIp = "{{ server_ip }}";
-    const socket = io(`http://127.0.0.1:5000`);
+    const socket = io(`https://fond-jointly-oryx.ngrok-free.app/`);
 socket.on('connect',function(){
     // A sort of hand shake to tell the server to send Data 
     // socket.send('ctrl');
