@@ -66,8 +66,6 @@ def handleMsg(msg):
                    range_finder])
     # print("Message Received: " + msg)
 
-
-
 # Async updates
 async def update_voltage():
     global voltage
@@ -112,8 +110,6 @@ async def update_gps():
         if new_lat is not None and new_lon is not None:
             gps_lat, gps_lon = new_lat, new_lon
         await asyncio.sleep(60)
-
-
 
 # Run both coroutines concurrently
 async def updateAllSensors():
