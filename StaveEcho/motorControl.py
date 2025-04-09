@@ -10,7 +10,7 @@ from adafruit_servokit import ServoKit
 
 
 # Servo Motors
-def actuation(L, R, baseDeg, yawDeg, pitchDeg, armLength):
+def actuation(L, R, baseDeg, pitchDeg, yawDeg, armHeight):
     move = ServoKit(channels = 16)
     base = 0
     baseRef = 1
