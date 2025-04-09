@@ -32,7 +32,7 @@ range_finder = 0
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")  # Rename this variable to avoid conflict
 print("Flask SocketIO initialized")
-server_ip = "192.168.1.239"  # Use the standard library socket module
+server_ip = "127.0.0.1"  # Use the standard library socket module
 
 # Main page
 @app.route("/")
