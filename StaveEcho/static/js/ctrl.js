@@ -290,6 +290,7 @@ socket.on('message',function(msg){
     controllerCode = [
       Math.round(currentDriveL), 
       Math.round(currentDriveR), 
+      baseDeg,
       Math.round(currentPitch), 
       Math.round(currentYaw), 
       Math.round(currentHeight),
