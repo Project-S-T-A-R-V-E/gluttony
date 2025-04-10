@@ -252,14 +252,14 @@ socket.on('message',function(msg){
         if (currentHeight > 178){
           currentHeight = 178;
         } else {
-          currentHeight = currentHeight + .25;
+          currentHeight = currentHeight + 1;
         }}
 
       if (gamepads[0].buttons[4].pressed){ // increment height up
-        if (currentHeight < 1){
-          currentHeight = 1;
+        if (currentHeight < 20){
+          currentHeight = 20;
         } else {
-          currentHeight = currentHeight - .25;
+          currentHeight = currentHeight - 1;
         }}
 
       if (gamepads[0].buttons[8].pressed){ // Retract Arm
