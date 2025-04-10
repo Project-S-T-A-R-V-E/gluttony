@@ -19,7 +19,7 @@ window.controllerCode = null;
 var currentPitch = 90;
 var currentYaw = 90;
 var currentHeight = 20;
-var currentBase = 0
+var currentBase = 10;
 var currentDriveR = 0;
 var currentDriveL = 0;
 var currentLightsStatus = false;
@@ -270,7 +270,7 @@ socket.on('message', function (msg) {
       currentHeight = 20;
       currentPitch = 90;
       currentYaw = 90;
-      currentBase = 0;
+      currentBase = 10;
       document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: Payload Set to Retract`;
     }
     if (gamepads[0].buttons[9].pressed) { // Deploy Arm
