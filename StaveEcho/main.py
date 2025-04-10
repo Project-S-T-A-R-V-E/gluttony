@@ -57,8 +57,9 @@ def handleDisconnect():
 @socketio.on('message')
 def handleMsg(msg):
     # Step 1: Send Sensor Data over WebSocket
-    mc.actuation(msg[2],msg[3],msg[4],msg[5])
     print(msg)
+    mc.actuation(msg[2],msg[3],msg[4],msg[5])
+    
     socketio.send([voltage, 
                    internal_temp, internal_humidity,
                    external_temp, external_humidity,
