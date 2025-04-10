@@ -20,7 +20,10 @@ def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
     # baseDeg = int(icmbaseDeg) 
     print(baseDeg)
     print(type(baseDeg))
-    move.servo[base].angle = baseDeg
+    try:
+        move.servo[base].angle = int(baseDeg)
+    except ValueError:
+        print(f"Error: baseDeg must be an integer, got {baseDeg} of type {type(baseDeg)}")
     # move.servo[baseRef].angle = (-1*baseDeg) +180
     # move.servo[yaw].angle = yawDeg    
     # move.servo[pitch].angle = pitchDeg
