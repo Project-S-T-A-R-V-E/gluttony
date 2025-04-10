@@ -18,7 +18,8 @@ def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
     pitch = 3
     linact = 4
     # baseDeg = int(baseDeg)  # Ensure baseDeg is an integer
-    print(baseDeg+type(baseDeg))
+    print(baseDeg)
+    print(type(baseDeg))
     # move.servo[base].angle = baseDeg
     # move.servo[baseRef].angle = (-1*baseDeg) +180
     # move.servo[yaw].angle = yawDeg    
