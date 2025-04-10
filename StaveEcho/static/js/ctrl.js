@@ -5,10 +5,10 @@ const htmlPitch = document.getElementById('pitchDriveCtrl');
 const htmlYaw = document.getElementById('yawDriveCtrl');
 const htmlHeight = document.getElementById('heightDriveCtrl');
 const htmlLights = document.getElementById('lightsCtrl');
+const htmlbaseAngle = document.getElementById('baseAngle');
 const mapElement = document.getElementById("map");
 const mapCurrentPosition = document.getElementById("currentPosition");
 const mapTargetPosition = document.getElementById("targetPosition");
-
 
 // Create Gamepad Constants
 window.gamepads = null;
@@ -16,9 +16,10 @@ window.standardGamepad = null;
 window.controllerCode = null;
 
 // Define current payload variables
-var currentPitch = 0;
-var currentYaw = 0;
-var currentHeight = 0;
+var currentPitch = 90;
+var currentYaw = 90;
+var currentHeight = 20;
+var currentBase = 0
 var currentDriveR = 0;
 var currentDriveL = 0;
 var currentLightsStatus = false;
@@ -69,14 +70,14 @@ function addGamepad() {
         ctrlDeployArm: gamepads[0].buttons[8].pressed
     } 
     document.getElementById("ctrlStatus").classList =  "btn btn-success";
-    document.getElementById("robotStatus").innerHTML = "The " + gamepads[0].id + " has connected successfully";
+    document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: ` + " The " + gamepads[0].id + " has connected successfully";
     socket.send("Controller Connected");
 }
 
 function disconnectHandler(e) {
     console.log("Gamepad Disconnected")
     document.getElementById("ctrlStatus").classList =  "btn btn-danger";
-    document.getElementById("robotStatus").innerHTML = "Gamepad Disconnected"
+    document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: ` + "Gamepad Disconnected"
     removeGamepad(gamepads);
 }
 
@@ -177,140 +178,146 @@ function getDigital(dSignal){
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
     const serverIp = "{{ server_ip }}";
-    const socket = io(`http://192.168.1.239:5000`);
+    const socket = io(`https://fond-jointly-oryx.ngrok-free.app/`);
 socket.on('connect',function(){
     // A sort of hand shake to tell the server to send Data 
     // socket.send('ctrl');
-    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Connected";
+    document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: ` + "WSIO Status: Connected";
 })
 
-socket.on('message',function(msg){
-    // Receiving data and asking for data back, will also serve as the controller feedback and accumulation  
-    // console.log("Step 2 receive Array data via WS")
-    if (msg.length != 0 ){
-        document.getElementById("displayVoltage").innerHTML = msg[0];
-        document.getElementById("displayInternalTemp").innerHTML = msg[1];
-        document.getElementById("displayInternalHumidity").innerHTML = msg[2];
-        document.getElementById("displayExternalTemp").innerHTML = msg[3];
-        document.getElementById("displayExternalHumidity").innerHTML = msg[4];
-        document.getElementById("xTilt").innerHTML = msg[5];
-        document.getElementById("yTilt").innerHTML = msg[6];
-        document.getElementById("zTilt").innerHTML = msg[7];
-        document.getElementById("xAccel").innerHTML = msg[8];
-        document.getElementById("yAccel").innerHTML = msg[9];
-        document.getElementById("zAccel").innerHTML = msg[10];
-        document.getElementById("xMag").innerHTML = msg[11];
-        document.getElementById("yMag").innerHTML = msg[12];
-        document.getElementById("zMag").innerHTML = msg[13];
-        document.getElementById("gpsLat").innerHTML = msg[14];
-        document.getElementById("gpsLon").innerHTML = msg[15];
-        document.getElementById("range").innerHTML = msg[16];
+socket.on('message', function (msg) {
+  // Receiving data and asking for data back, will also serve as the controller feedback and accumulation  
+  if (msg.length != 0) {
+    document.getElementById("displayVoltage").innerHTML = msg[0];
+    document.getElementById("displayInternalTemp").innerHTML = msg[1];
+    document.getElementById("displayInternalHumidity").innerHTML = msg[2];
+    document.getElementById("displayExternalTemp").innerHTML = msg[3];
+    document.getElementById("displayExternalHumidity").innerHTML = msg[4];
+    document.getElementById("xTilt").innerHTML = msg[5];
+    document.getElementById("yTilt").innerHTML = msg[6];
+    document.getElementById("zTilt").innerHTML = msg[7];
+    document.getElementById("xAccel").innerHTML = msg[8];
+    document.getElementById("yAccel").innerHTML = msg[9];
+    document.getElementById("zAccel").innerHTML = msg[10];
+    document.getElementById("xMag").innerHTML = msg[11];
+    document.getElementById("yMag").innerHTML = msg[12];
+    document.getElementById("zMag").innerHTML = msg[13];
+    document.getElementById("gpsLat").innerHTML = msg[14];
+    document.getElementById("gpsLon").innerHTML = msg[15];
+    document.getElementById("range").innerHTML = msg[16];
+  } else {
+    alert("Unexpected Signal... System may need to be reset. \nProceed With Caution.");
+  }
 
-        // console.log("Step 3: Finished changing HTML Data")
-    } else {
-        alert("Unexpected Signal... System my need to be reset. \nProceed With Caution.");
+  gamepads = navigator.getGamepads(); // Refresh the gamepads array
+  if (gamepads[0] && gamepads[0].connected) {
+    // Drive
+    currentDriveL = getAnalog((((gamepads[0].axes[1]) * -50) + 50).toFixed(0)); // Left
+    currentDriveR = getAnalog((((gamepads[0].axes[3]) * -50) + 50).toFixed(0)); // Right
+    var incSpeed = .25;
+
+    // Payload Trim
+    if (gamepads[0].buttons[12].pressed) { // pitch up
+      if (currentPitch > 178) {
+        currentPitch = 178;
+      } else {
+        currentPitch = currentPitch + incSpeed;
+      }
     }
-    
-    gamepads = navigator.getGamepads(); // Refresh the gamepads array
-    if (gamepads[0] && gamepads[0].connected){
-      // Drive
-      currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
-      currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
 
-      // Payload Trim
-       if (gamepads[0].buttons[12].pressed){ // pitch up
-          if (currentPitch > 254){
-            currentPitch = 254;
-          } else {
-            currentPitch = currentPitch + .1;
-          }}
+    if (gamepads[0].buttons[13].pressed) { // pitch down
+      if (currentPitch < 1) {
+        currentPitch = 1;
+      } else {
+        currentPitch = currentPitch - incSpeed;
+      }
+    }
 
-       if (gamepads[0].buttons[13].pressed){ // pitch down
-        if (currentPitch < 1){
-          currentPitch = 1;
-        } else{
-          currentPitch = currentPitch - .1;
-        }}
+    if (gamepads[0].buttons[15].pressed) { // yaw left
+      if (currentYaw > 178) {
+        currentYaw = 178;
+      } else {
+        currentYaw = currentYaw + incSpeed;
+      }
+    }
 
-       if (gamepads[0].buttons[14].pressed){ // yaw left
-        if (currentYaw > 254){
-          currentYaw = 254;
-        } else {  
-          currentYaw = currentYaw + .1;
-        }}
+    if (gamepads[0].buttons[14].pressed) { // yaw right
+      if (currentYaw < 1) {
+        currentYaw = 1;
+      } else {
+        currentYaw = currentYaw - incSpeed;
+      }
+    }
 
-       if (gamepads[0].buttons[15].pressed){ // yaw right
-        if (currentYaw < 1){
-          currentYaw = 1;
-        } else {
-          currentYaw = currentYaw - .1;
-        }}
-      
-      // Payload Height
-      if (gamepads[0].buttons[4].pressed){ // increment height down
-        if (currentHeight > 254){
-          currentHeight = 254;
-        } else {
-          currentHeight = currentHeight + .1;
-        }}
+    // Payload Height
+    if (gamepads[0].buttons[5].pressed) { // increment height down
+      if (currentHeight > 178) {
+        currentHeight = 178;
+      } else {
+        currentHeight = currentHeight + incSpeed;
+      }
+    }
 
-      if (gamepads[0].buttons[5].pressed){ // increment height up
-        if (currentHeight < 1){
-          currentHeight = 1;
-        } else {
-          currentHeight = currentHeight - .1;
-        }}
+    if (gamepads[0].buttons[4].pressed) { // increment height up
+      if (currentHeight < 20) {
+        currentHeight = 20;
+      } else {
+        currentHeight = currentHeight - incSpeed;
+      }
+    }
 
-      if (gamepads[0].buttons[8].pressed){ // Retract Arm
-        currentHeight = 0;
-        currentPitch = 0;
-        currentYaw = 0;
-        }
-      if (gamepads[0].buttons[9].pressed){ // Deploy Arm
-        currentHeight = 100;
-        currentPitch = 100;
-        currentYaw = 100;
-        }
+    if (gamepads[0].buttons[8].pressed) { // Retract Arm
+      currentHeight = 20;
+      currentPitch = 90;
+      currentYaw = 90;
+      currentBase = 0;
+      document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: Payload Set to Retract`;
+    }
+    if (gamepads[0].buttons[9].pressed) { // Deploy Arm
+      currentHeight = 20;
+      currentPitch = 0;
+      currentYaw = 90;
+      currentBase = 90;
+      document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: Payload Set to Deploy`;
+    }
 
-      // Lights
-      if (gamepads[0].buttons[2].pressed){ // Lights Ons
-        currentLightsStatus = true;
-        }
-      if (gamepads[0].buttons[0].pressed){ // Lights Off
-        currentLightsStatus = false;
-        }
+    // Lights
+    if (gamepads[0].buttons[3].pressed) { // Lights On
+      currentLightsStatus = true;
+    }
+    if (gamepads[0].buttons[0].pressed) { // Lights Off
+      currentLightsStatus = false;
+    }
 
-      htmlLeftAnalog.textContent = Math.round(currentDriveL);
-      htmlRightAnalog.textContent = Math.round(currentDriveR);
-      htmlPitch.textContent = Math.round(currentPitch);
-      htmlYaw.textContent = Math.round(currentYaw);
-      htmlHeight.textContent = Math.round(currentHeight);
-      htmlLights.textContent = currentLightsStatus;
+    htmlLeftAnalog.textContent = Math.round(currentDriveL);
+    htmlRightAnalog.textContent = Math.round(currentDriveR);
+    htmlPitch.textContent = Math.round(currentPitch);
+    htmlYaw.textContent = Math.round(currentYaw);
+    htmlHeight.textContent = Math.round(currentHeight);
+    htmlbaseAngle.textContent = currentBase;
+    htmlLights.textContent = currentLightsStatus;
+
     // controllerCode to send to python
     controllerCode = [
-      Math.round(currentDriveL), 
-      Math.round(currentDriveR), 
-      baseDeg,
-      Math.round(currentPitch), 
-      Math.round(currentYaw), 
+      Math.round(currentDriveL),
+      Math.round(currentDriveR),
+      Math.round(currentPitch),
+      Math.round(currentYaw),
       Math.round(currentHeight),
+      currentBase,
       currentLightsStatus
-    ]; 
+    ];
     console.log(controllerCode);
     socket.send(controllerCode); // Send out to Receive more
-    // console.log("Socket sent data to server")
-  
-    }
+  }
 
-    mapElement.setAttribute("center", `${msg[14]},${msg[15]}`);
-    mapElement.setAttribute("zoom", `15`);
-    mapCurrentPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
-    // mapTargetPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
-
-  })
+  mapElement.setAttribute("center", `${msg[14]},${msg[15]}`);
+  mapElement.setAttribute("zoom", `15`);
+  mapCurrentPosition.setAttribute("position", `${msg[14]},${msg[15]}`);
+});
 
 socket.on('disconnect',function(){
-    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Disconnected";
+    document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: WSIO Status: Disconnected `;
 })
 
 
