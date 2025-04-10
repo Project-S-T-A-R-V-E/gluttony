@@ -217,7 +217,7 @@ socket.on('message',function(msg){
       // Drive
       currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
       currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
-      incSpeed =.25
+      var incSpeed =.25
       // Payload Trim
        if (gamepads[0].buttons[12].pressed){ // pitch up
           if (currentPitch > 178){
