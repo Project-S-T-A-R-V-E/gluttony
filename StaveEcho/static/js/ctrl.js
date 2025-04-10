@@ -267,12 +267,14 @@ socket.on('message',function(msg){
         currentPitch = 90;
         currentYaw = 90;
         currentBase = 0
+        document.getElementById("robotStatus").innerHTML = "Payload Set to Retract"
         }
       if (gamepads[0].buttons[9].pressed){ // Deploy Arm
         currentHeight = 20;
         currentPitch = 0;
         currentYaw = 90;
         currentBase = 90
+        document.getElementById("robotStatus").innerHTML = "Payload Set to Deploy"
         }
 
       // Lights
