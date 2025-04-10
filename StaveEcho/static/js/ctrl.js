@@ -1,3 +1,5 @@
+const currentTime = new Date().toISOString();
+
 // HTML Casting Variables
 const htmlRightAnalog = document.getElementById('rightDriveCtrl');
 const htmlLeftAnalog = document.getElementById('leftDriveCtrl');
@@ -316,7 +318,7 @@ socket.on('message',function(msg){
   })
 
 socket.on('disconnect',function(){
-    document.getElementById("robotStatus").innerHTML =  "WSIO Status: Disconnected";
+    document.getElementById("robotStatus").innerHTML = `${currentTime}: WSIO Status: Disconnected `;
 })
 
 
