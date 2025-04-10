@@ -220,8 +220,8 @@ socket.on('message',function(msg){
 
       // Payload Trim
        if (gamepads[0].buttons[12].pressed){ // pitch up
-          if (currentPitch > 254){
-            currentPitch = 254;
+          if (currentPitch > 178){
+            currentPitch = 178;
           } else {
             currentPitch = currentPitch + .1;
           }}
@@ -234,8 +234,8 @@ socket.on('message',function(msg){
         }}
 
        if (gamepads[0].buttons[14].pressed){ // yaw left
-        if (currentYaw > 254){
-          currentYaw = 254;
+        if (currentYaw > 178){
+          currentYaw = 178;
         } else {  
           currentYaw = currentYaw + .1;
         }}
@@ -249,28 +249,30 @@ socket.on('message',function(msg){
       
       // Payload Height
       if (gamepads[0].buttons[5].pressed){ // increment height down
-        if (currentHeight > 254){
-          currentHeight = 254;
+        if (currentHeight > 178){
+          currentHeight = 178;
         } else {
-          currentHeight = currentHeight + .1;
+          currentHeight = currentHeight + .25;
         }}
 
       if (gamepads[0].buttons[4].pressed){ // increment height up
         if (currentHeight < 1){
           currentHeight = 1;
         } else {
-          currentHeight = currentHeight - .1;
+          currentHeight = currentHeight - .25;
         }}
 
       if (gamepads[0].buttons[8].pressed){ // Retract Arm
-        currentHeight = 0;
-        currentPitch = 0;
-        currentYaw = 0;
+        currentHeight = 20;
+        currentPitch = 90;
+        currentYaw = 90;
+        currentBase = 0
         }
       if (gamepads[0].buttons[9].pressed){ // Deploy Arm
-        currentHeight = 100;
-        currentPitch = 100;
-        currentYaw = 100;
+        currentHeight = 20;
+        currentPitch = 0;
+        currentYaw = 90;
+        currentBase = 90
         }
 
       // Lights
