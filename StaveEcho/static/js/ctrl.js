@@ -16,9 +16,10 @@ window.standardGamepad = null;
 window.controllerCode = null;
 
 // Define current payload variables
-var currentPitch = 0;
-var currentYaw = 0;
-var currentHeight = 0;
+var currentPitch = 90;
+var currentYaw = 90;
+var currentHeight = 20;
+var currentBase = 0
 var currentDriveR = 0;
 var currentDriveL = 0;
 var currentLightsStatus = false;
@@ -247,14 +248,14 @@ socket.on('message',function(msg){
         }}
       
       // Payload Height
-      if (gamepads[0].buttons[4].pressed){ // increment height down
+      if (gamepads[0].buttons[5].pressed){ // increment height down
         if (currentHeight > 254){
           currentHeight = 254;
         } else {
           currentHeight = currentHeight + .1;
         }}
 
-      if (gamepads[0].buttons[5].pressed){ // increment height up
+      if (gamepads[0].buttons[4].pressed){ // increment height up
         if (currentHeight < 1){
           currentHeight = 1;
         } else {
@@ -273,7 +274,7 @@ socket.on('message',function(msg){
         }
 
       // Lights
-      if (gamepads[0].buttons[2].pressed){ // Lights Ons
+      if (gamepads[0].buttons[3].pressed){ // Lights Ons
         currentLightsStatus = true;
         }
       if (gamepads[0].buttons[0].pressed){ // Lights Off
