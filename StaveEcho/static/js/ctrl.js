@@ -286,7 +286,7 @@ socket.on('message',function(msg){
       htmlPitch.textContent = Math.round(currentPitch);
       htmlYaw.textContent = Math.round(currentYaw);
       htmlHeight.textContent = Math.round(currentHeight);
-      htmlbaseAngle.textContent(currentBase)
+      htmlbaseAngle.textContent = currentBase
       htmlLights.textContent = currentLightsStatus;
     // controllerCode to send to python
     controllerCode = [
