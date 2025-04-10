@@ -5,10 +5,10 @@ const htmlPitch = document.getElementById('pitchDriveCtrl');
 const htmlYaw = document.getElementById('yawDriveCtrl');
 const htmlHeight = document.getElementById('heightDriveCtrl');
 const htmlLights = document.getElementById('lightsCtrl');
+const htmlbaseAngle = document.getElementById('baseAngle');
 const mapElement = document.getElementById("map");
 const mapCurrentPosition = document.getElementById("currentPosition");
 const mapTargetPosition = document.getElementById("targetPosition");
-
 
 // Create Gamepad Constants
 window.gamepads = null;
@@ -286,6 +286,7 @@ socket.on('message',function(msg){
       htmlPitch.textContent = Math.round(currentPitch);
       htmlYaw.textContent = Math.round(currentYaw);
       htmlHeight.textContent = Math.round(currentHeight);
+      htmlbaseAngle.textContent(currentBase)
       htmlLights.textContent = currentLightsStatus;
     // controllerCode to send to python
     controllerCode = [
@@ -294,6 +295,7 @@ socket.on('message',function(msg){
       Math.round(currentPitch), 
       Math.round(currentYaw), 
       Math.round(currentHeight),
+      currentBase,
       currentLightsStatus
     ]; 
     console.log(controllerCode);
