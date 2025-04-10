@@ -8,6 +8,7 @@ import gps
 import rangeFinder
 import os
 import asyncio
+import motorControl as mc
 
 voltage = 0
 internal_temp = 0
@@ -56,6 +57,7 @@ def handleDisconnect():
 @socketio.on('message')
 def handleMsg(msg):
     # Step 1: Send Sensor Data over WebSocket
+    mc.actuation(msg[2],msg[3],msg[4],msg[5])
     socketio.send([voltage, 
                    internal_temp, internal_humidity,
                    external_temp, external_humidity,

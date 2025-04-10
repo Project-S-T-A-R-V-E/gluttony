@@ -10,18 +10,18 @@ from adafruit_servokit import ServoKit
 
 
 # Servo Motors
-def actuation(L, R, baseDeg, pitchDeg, yawDeg, armHeight):
+def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
     move = ServoKit(channels = 16)
     base = 0
     baseRef = 1
     yaw = 2
     pitch = 3
     linact = 4
-    move.servo[base].angle = 10
-    move.servo[baseRef].angle = 170
-    move.servo[yaw].angle = 90    
-    move.servo[pitch].angle = 80
-    move.servo[linact].angle = 20
+    move.servo[base].angle = baseDeg
+    move.servo[baseRef].angle = (-1*baseDeg) +180
+    move.servo[yaw].angle = yawDeg    
+    move.servo[pitch].angle = pitchDeg
+    move.servo[linact].angle = armHeight
 
  
 
