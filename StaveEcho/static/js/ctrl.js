@@ -217,34 +217,34 @@ socket.on('message',function(msg){
       // Drive
       currentDriveL = getAnalog((((gamepads[0].axes[1])*-50)+50).toFixed(0)); // Left
       currentDriveR = getAnalog((((gamepads[0].axes[3])*-50)+50).toFixed(0)); // Right
-
+      incSpeed =.25
       // Payload Trim
        if (gamepads[0].buttons[12].pressed){ // pitch up
           if (currentPitch > 178){
             currentPitch = 178;
           } else {
-            currentPitch = currentPitch + .1;
+            currentPitch = currentPitch + incSpeed;
           }}
 
        if (gamepads[0].buttons[13].pressed){ // pitch down
         if (currentPitch < 1){
           currentPitch = 1;
         } else{
-          currentPitch = currentPitch - .1;
+          currentPitch = currentPitch - incSpeed;
         }}
 
-       if (gamepads[0].buttons[14].pressed){ // yaw left
+       if (gamepads[0].buttons[15].pressed){ // yaw left
         if (currentYaw > 178){
           currentYaw = 178;
         } else {  
-          currentYaw = currentYaw + .1;
+          currentYaw = currentYaw + incSpeed;
         }}
 
-       if (gamepads[0].buttons[15].pressed){ // yaw right
+       if (gamepads[0].buttons[14].pressed){ // yaw right
         if (currentYaw < 1){
           currentYaw = 1;
         } else {
-          currentYaw = currentYaw - .1;
+          currentYaw = currentYaw - incSpeed;
         }}
       
       // Payload Height
@@ -252,14 +252,14 @@ socket.on('message',function(msg){
         if (currentHeight > 178){
           currentHeight = 178;
         } else {
-          currentHeight = currentHeight + 1;
+          currentHeight = currentHeight + incSpeed;
         }}
 
       if (gamepads[0].buttons[4].pressed){ // increment height up
         if (currentHeight < 20){
           currentHeight = 20;
         } else {
-          currentHeight = currentHeight - 1;
+          currentHeight = currentHeight - incSpeed;
         }}
 
       if (gamepads[0].buttons[8].pressed){ // Retract Arm
