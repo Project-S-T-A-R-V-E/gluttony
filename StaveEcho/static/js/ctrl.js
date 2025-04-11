@@ -196,8 +196,8 @@ socket.on('message', function (msg) {
     // Drive
     // currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
     // currentDriveR = speedControl(gamepads[0].axes[3].toFixed(2)); // Right
-    currentDriveL = gamepads[0].axes[1].toFixed(2); // Left
-    currentDriveR = gamepads[0].axes[3].toFixed(2); // Right
+    currentDriveL = gamepads[0].axes[1]; // Left
+    currentDriveR = gamepads[0].axes[3]; // Right
     var incSpeed = .49;
 
     // Payload Trim
