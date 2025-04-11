@@ -158,11 +158,6 @@ function speedControl(anaNum) {
     }
   }
 
-
-
-
-
-
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
     const serverIp = "{{ server_ip }}";
