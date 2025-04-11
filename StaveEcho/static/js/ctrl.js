@@ -196,8 +196,8 @@ socket.on('message', function (msg) {
     // Drive
     // currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
     // currentDriveR = speedControl(gamepads[0].axes[3].toFixed(2)); // Right
-    currentDriveL = gamepads[0].axes[1]; // Left
-    currentDriveR = gamepads[0].axes[3]; // Right
+    currentDriveL = toFixed(gamepads[0].axes[1]); // Left
+    currentDriveR = toFixed(gamepads[0].axes[3]); // Right
     var incSpeed = .49;
 
     // Payload Trim
@@ -274,8 +274,8 @@ socket.on('message', function (msg) {
       currentLightsStatus = false;
     }
 
-    htmlLeftAnalog.textContent = Math.round(currentDriveL);
-    htmlRightAnalog.textContent = Math.round(currentDriveR);
+    htmlLeftAnalog.textContent = currentDriveL;
+    htmlRightAnalog.textContent = currentDriveR;
     htmlPitch.textContent = Math.round(currentPitch);
     htmlYaw.textContent = Math.round(currentYaw);
     htmlHeight.textContent = Math.round(currentHeight);
