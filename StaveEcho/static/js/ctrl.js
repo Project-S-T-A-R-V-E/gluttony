@@ -194,8 +194,10 @@ socket.on('message', function (msg) {
   gamepads = navigator.getGamepads(); // Refresh the gamepads array
   if (gamepads[0] && gamepads[0].connected) {
     // Drive
-    currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
-    currentDriveR = speedControl(gamepads[0].axes[3].toFixed(0)); // Right
+    // currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
+    // currentDriveR = speedControl(gamepads[0].axes[3].toFixed(2)); // Right
+    currentDriveL = gamepads[0].axes[1].toFixed(2); // Left
+    currentDriveR = gamepads[0].axes[3].toFixed(2); // Right
     var incSpeed = .49;
 
     // Payload Trim
