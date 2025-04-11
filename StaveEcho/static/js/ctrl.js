@@ -134,45 +134,33 @@ function scanGamepads() {
   }
 }
 
-function getAnalog(anaNum) {
-    // The -100:100 analog signal from the controller is not inherently compatible with the Arduino Signal that is expected/planned. So this function makes it a two digit signal and limits it from 00:99 
-    if (anaNum == 0){
-    return "00";
-    } else if(anaNum==100){
-        return "99"
-    } else if (anaNum.length == 1){
-        return "0"+ anaNum
+function speedControl(anaNum) {
+    max = 0.2
+    deadzone = 0.05
+    anaNum = anaNum.toFixed(2)
+   
+    if (anaNum < -deadzone){
+      if (Math.abs(anaNum) >= max) {
+        return -max;
+      } else {
+        return anaNum;
+      }
+    } else if (anaNum >= -deadzone && anaNum <= deadzone) {
+        return 0
+    } else if (anaNum > deadzone){
+      if (Math.abs(anaNum) >= max) {
+        return max;
+      } else {
+        return anaNum;
+      }
     } else {
-        return anaNum
+      return 0
     }
-}
+  }
 
-function formatTripleDigit(digit,type){ 
-    if (digit <= "0"){
-        return "000";
-    } else if (digit > 0 && digit < 10) {
-        return "00" + digit.toString();
-    } else if (digit >= 10 && digit < 100) {
-        return "0" + digit.toString();
-    } else if (digit >= 100 ) {
-        if (type == "psi" && digit >= 110){
-          return "110";
-        } else if (type == "arm" && digit >= 255){
-          return "255";
-        } else {
-          return digit;
-        }
-    } 
-} 
 
-function getDigital(dSignal){
-    // The gamepad API returns true or false. So this function will return a "1" or "0" for the planned final Signal 
-    if (dSignal == true){
-        return "1";
-    } else {
-        return "0"
-    }
-}
+
+
 
 
 // Socket.io Variables
@@ -212,8 +200,8 @@ socket.on('message', function (msg) {
   gamepads = navigator.getGamepads(); // Refresh the gamepads array
   if (gamepads[0] && gamepads[0].connected) {
     // Drive
-    currentDriveL = getAnalog((((gamepads[0].axes[1]) * -50) + 50).toFixed(0)); // Left
-    currentDriveR = getAnalog((((gamepads[0].axes[3]) * -50) + 50).toFixed(0)); // Right
+    currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
+    currentDriveR = speedControl(gamepads[0].axes[3].toFixed(0)); // Right
     var incSpeed = .49;
 
     // Payload Trim
@@ -258,6 +246,7 @@ socket.on('message', function (msg) {
       }
     }
 
+    // Payload Quick Commands
     if (gamepads[0].buttons[4].pressed) { // increment height up
       if (currentHeight < 20) {
         currentHeight = 20;
