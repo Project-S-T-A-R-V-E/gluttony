@@ -137,7 +137,6 @@ function scanGamepads() {
 function speedControl(anaNum) {
     var max = 0.2
     var deadzone = 0.05
-    anaNum = parseFloat(anaNum.toFixed(2));
    
     if (anaNum < -deadzone){
       if (Math.abs(anaNum) >= max) {
