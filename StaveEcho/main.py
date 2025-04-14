@@ -66,8 +66,6 @@ def handleMsg(msg):
                    range_finder])
     # print("Message Received: " + msg)
 
-
-
 # Async updates
 async def update_voltage():
     global voltage
@@ -102,10 +100,8 @@ async def update_external_humidity():
 async def update_imu():
     global pyr_x, pyr_y, pyr_z, accel_x, accel_y, accel_z, mag_x, mag_y, mag_z
     while True:
-        pyr_x, pyr_y, pyr_z = imu.getPYR()
-        accel_x, accel_y, accel_z = imu.getAccelXYZ()
-        mag_x, mag_y, mag_z = imu.getMagXYZ()
-        await asyncio.sleep(0.1)
+        pyr_x, pyr_y, pyr_z, accel_x, accel_y, accel_z, mag_x, mag_y, mag_z = imu.getIMU()
+        await asyncio.sleep(0.4)
 
 async def update_gps():
     global gps_lat, gps_lon
@@ -114,8 +110,6 @@ async def update_gps():
         if new_lat is not None and new_lon is not None:
             gps_lat, gps_lon = new_lat, new_lon
         await asyncio.sleep(60)
-
-
 
 # Run both coroutines concurrently
 async def updateAllSensors():
