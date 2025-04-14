@@ -118,7 +118,7 @@ async def update_gps():
 async def update_rangefinder():
     global range_finder
     while True:
-        range_finder = gps.getGPS()
+        range_finder = rangeFinder.getLidarData()
         await asyncio.sleep(5)
 
 
