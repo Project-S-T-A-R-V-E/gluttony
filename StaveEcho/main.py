@@ -115,6 +115,12 @@ async def update_gps():
             gps_lat, gps_lon = new_lat, new_lon
         await asyncio.sleep(60)
 
+async def update_rangefinder():
+    global range_finder
+    while True:
+        range_finder = gps.getGPS()
+        await asyncio.sleep(5)
+
 
 
 # Run both coroutines concurrently
