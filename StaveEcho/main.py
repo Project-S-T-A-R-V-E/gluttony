@@ -68,6 +68,7 @@ def handleMsg(msg):
                    gps_lat, gps_lon,
                    range_finder])
     else:
+        mc.drive(msg[0],msg[1])
         mc.actuation(msg[2],msg[3],msg[4],msg[5])
         socketio.send([voltage, 
                    internal_temp, internal_humidity,
