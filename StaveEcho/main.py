@@ -111,6 +111,12 @@ async def update_gps():
             gps_lat, gps_lon = new_lat, new_lon
         await asyncio.sleep(60)
 
+async def update_rangefinder():
+    global range_finder
+    while True:
+        range_finder = rangeFinder.getLidarData()
+        await asyncio.sleep(5)
+
 # Run both coroutines concurrently
 async def updateAllSensors():
     await asyncio.gather(
@@ -120,7 +126,8 @@ async def updateAllSensors():
         update_external_temp(),
         update_external_humidity(),
         update_imu(),
-        update_gps()
+        update_gps(),
+        update_rangefinder()
     )
 
 # Start Flask Server w/ SocketIO
