@@ -80,6 +80,6 @@ def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
     move.servo[pitch].angle = pitchDeg
     move.servo[linact].angle = armHeight
 
- 
 
+actuation(0, 90, 20, 90)
 
