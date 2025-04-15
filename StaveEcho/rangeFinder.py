@@ -20,5 +20,5 @@ def getLidarData():
     return distance
 
 
-getLidarData()
+print(getLidarData())
 # time.sleep(0.1)
