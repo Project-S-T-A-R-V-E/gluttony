@@ -27,41 +27,41 @@ def drive(L,R):
     
     # ++: Both motors forward
     if L > 0 and R > 0:
-        # pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
-        # pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
-        # pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
+        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
+        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
         print("Forward! " + str(L) + " " + str(R))
     
     # +-: Left motor forward, Right motor backward
     elif L > 0 and R < 0:
-        # pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
-        # pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
+        pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
+        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
         print("Turn Right! " + str(L) + " " + str(R))
     
     # -+: Left motor backward, Right motor forward
     elif L < 0 and R > 0:
-        # pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
-        # pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
-        # pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
+        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
         print("Turn Left! " + str(L) + " " + str(R))
 
     # --: Both motors backward
     elif L < 0 and R < 0:
-        # pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
-        # pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
+        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
         print("Backwards! " + str(L) + " " + str(R))
     # 00: Stop both motors
     else:
-        # pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        # pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
+        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
         print("STOP! " + str(L) + " " + str(R))
 
 
