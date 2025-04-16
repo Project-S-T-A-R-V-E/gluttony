@@ -19,7 +19,7 @@ window.controllerCode = null;
 var currentPitch = 90;
 var currentYaw = 90;
 var currentHeight = 20;
-var currentBase = 0
+var currentBase = 10;
 var currentDriveR = 0;
 var currentDriveL = 0;
 var currentLightsStatus = false;
@@ -134,46 +134,28 @@ function scanGamepads() {
   }
 }
 
-function getAnalog(anaNum) {
-    // The -100:100 analog signal from the controller is not inherently compatible with the Arduino Signal that is expected/planned. So this function makes it a two digit signal and limits it from 00:99 
-    if (anaNum == 0){
-    return "00";
-    } else if(anaNum==100){
-        return "99"
-    } else if (anaNum.length == 1){
-        return "0"+ anaNum
+function speedControl(anaNum) {
+    var max = 0.2
+    var deadzone = 0.05
+   
+    if (anaNum < -deadzone){
+      if (Math.abs(anaNum) >= max) {
+        return -max;
+      } else {
+        return anaNum;
+      }
+    } else if (anaNum >= -deadzone && anaNum <= deadzone) {
+        return 0
+    } else if (anaNum > deadzone){
+      if (Math.abs(anaNum) >= max) {
+        return max;
+      } else {
+        return anaNum;
+      }
     } else {
-        return anaNum
+      return 0
     }
-}
-
-function formatTripleDigit(digit,type){ 
-    if (digit <= "0"){
-        return "000";
-    } else if (digit > 0 && digit < 10) {
-        return "00" + digit.toString();
-    } else if (digit >= 10 && digit < 100) {
-        return "0" + digit.toString();
-    } else if (digit >= 100 ) {
-        if (type == "psi" && digit >= 110){
-          return "110";
-        } else if (type == "arm" && digit >= 255){
-          return "255";
-        } else {
-          return digit;
-        }
-    } 
-} 
-
-function getDigital(dSignal){
-    // The gamepad API returns true or false. So this function will return a "1" or "0" for the planned final Signal 
-    if (dSignal == true){
-        return "1";
-    } else {
-        return "0"
-    }
-}
-
+  }
 
 // Socket.io Variables
 // import { gamepads } from "./ctrl.js";
@@ -212,9 +194,11 @@ socket.on('message', function (msg) {
   gamepads = navigator.getGamepads(); // Refresh the gamepads array
   if (gamepads[0] && gamepads[0].connected) {
     // Drive
-    currentDriveL = getAnalog((((gamepads[0].axes[1]) * -50) + 50).toFixed(0)); // Left
-    currentDriveR = getAnalog((((gamepads[0].axes[3]) * -50) + 50).toFixed(0)); // Right
-    var incSpeed = .25;
+    // currentDriveL = speedControl(gamepads[0].axes[1].toFixed(2)); // Left
+    // currentDriveR = speedControl(gamepads[0].axes[3].toFixed(2)); // Right
+    currentDriveL = speedControl(-1 * parseFloat(gamepads[0].axes[1].toFixed(2))); // Left
+    currentDriveR = speedControl(-1 * parseFloat(gamepads[0].axes[3].toFixed(2))); // Right
+    var incSpeed = .49;
 
     // Payload Trim
     if (gamepads[0].buttons[12].pressed) { // pitch up
@@ -258,6 +242,7 @@ socket.on('message', function (msg) {
       }
     }
 
+    // Payload Quick Commands
     if (gamepads[0].buttons[4].pressed) { // increment height up
       if (currentHeight < 20) {
         currentHeight = 20;
@@ -270,7 +255,7 @@ socket.on('message', function (msg) {
       currentHeight = 20;
       currentPitch = 90;
       currentYaw = 90;
-      currentBase = 0;
+      currentBase = 10;
       document.getElementById("robotStatus").innerHTML = `${new Date().toISOString()}: Payload Set to Retract`;
     }
     if (gamepads[0].buttons[9].pressed) { // Deploy Arm
@@ -289,8 +274,8 @@ socket.on('message', function (msg) {
       currentLightsStatus = false;
     }
 
-    htmlLeftAnalog.textContent = Math.round(currentDriveL);
-    htmlRightAnalog.textContent = Math.round(currentDriveR);
+    htmlLeftAnalog.textContent = currentDriveL;
+    htmlRightAnalog.textContent = currentDriveR;
     htmlPitch.textContent = Math.round(currentPitch);
     htmlYaw.textContent = Math.round(currentYaw);
     htmlHeight.textContent = Math.round(currentHeight);
@@ -299,8 +284,8 @@ socket.on('message', function (msg) {
 
     // controllerCode to send to python
     controllerCode = [
-      Math.round(currentDriveL),
-      Math.round(currentDriveR),
+      currentDriveL,
+      currentDriveR,
       Math.round(currentPitch),
       Math.round(currentYaw),
       Math.round(currentHeight),
