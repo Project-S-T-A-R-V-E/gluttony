@@ -28,6 +28,11 @@
     ```bash
     sudo python3 main.py
     ```
+## Rasberry pi configuration
+### rbpi connect install and config
+### enable i2c https://pinout.xyz/pinout/i2c
+### enable GPS on serial 
+
 
 ## Resource
 - [How to use Raspberry Pi GPIO pins with Ubuntu](https://ubuntu.com/tutorials/gpio-on-raspberry-pi)
@@ -37,3 +42,4 @@
 - [Miniature Linear Motion Series · L12](https://www.actuonix.com/assets/images/datasheets/ActuonixL12Datasheet.pdf)
 - [Raspberry Pi Tutorial: How to Use the DHT-22](https://www.instructables.com/Raspberry-Pi-Tutorial-How-to-Use-the-DHT-22/)
 - [icm20948-python/](https://github.com/pimoroni/icm20948-python/tree/main)
+- [rbpi GPIO](https://pinout.xyz/pinout/i2c)
