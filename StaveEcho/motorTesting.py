@@ -1,5 +1,6 @@
 import time
 from adafruit_pca9685 import PCA9685
+from adafruit_servokit import ServoKit 
 from board import SCL, SDA
 import busio
 # Create the I2C bus interface
