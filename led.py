@@ -231,3 +231,5 @@ for status in ["OFF", "ON", "unknown"]:
     print(f"  Status: {status}")
     headlights(status)
     time.sleep(1)
+
+headlights("OFF")
