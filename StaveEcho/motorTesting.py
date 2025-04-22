@@ -19,34 +19,32 @@ while True:
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
         ch = input("ch: ")  # Input is a string, don't convert it to int immedi>
         if ch == "s":
-                set_pwm(8, 50, 0)
-                set_pwm(9, 50, 0)
-                set_pwm(10, 50, 0)
-                set_pwm(11, 50, 0)
+                for channel in range(16):
+                        set_pwm(channel, 50, 0)
                 print("STOP")
         elif ch == "f":
                 frequency = int(input("Freq: "))
                 duty_cycle = int(input("DC%: "))
-                set_pwm(8, frequency, duty_cycle)
-                set_pwm(9, frequency, duty_cycle)
+                set_pwm(13, frequency, duty_cycle)
+                set_pwm(14, frequency, duty_cycle)
                 print("FORWARD")
         elif ch == "b":
                 frequency = int(input("Freq: "))
                 duty_cycle = int(input("DC%: "))
-                set_pwm(10, frequency, duty_cycle)
-                set_pwm(11, frequency, duty_cycle)
+                set_pwm(15, frequency, duty_cycle)
+                set_pwm(12, frequency, duty_cycle)
                 print("BACKWARD")
         elif ch == "l":
                 frequency = int(input("Freq: "))
                 duty_cycle = int(input("DC%: "))
-                set_pwm(9, frequency, duty_cycle)
-                set_pwm(11, frequency, duty_cycle)
+                set_pwm(14, frequency, duty_cycle)
+                set_pwm(12, frequency, duty_cycle)
                 print("LEFT TURN")
         elif ch == "r":
                 frequency = int(input("Freq: "))
                 duty_cycle = int(input("DC%: "))
-                set_pwm(10, frequency, duty_cycle)
-                set_pwm(8, frequency, duty_cycle)
+                set_pwm(13, frequency, duty_cycle)
+                set_pwm(15, frequency, duty_cycle)
                 print("RIGHT TURN")
         else:
                 try:
