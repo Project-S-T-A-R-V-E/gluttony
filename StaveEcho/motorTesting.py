@@ -15,13 +15,35 @@ def set_pwm(channel, frequency, duty_cycle):
     # Set the PWM signal for the specified channel
     pca.channels[channel].duty_cycle = pulse_length
 
+def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
+    move = ServoKit(channels = 16)
+    base = 0
+    baseRef = 1
+    yaw = 2
+    pitch = 3
+    linact = 4
+
+    move.servo[base].angle = int(baseDeg)
+    move.servo[baseRef].angle = (-1*baseDeg) +180
+    move.servo[yaw].angle = yawDeg    
+    move.servo[pitch].angle = pitchDeg
+    move.servo[linact].angle = armHeight
+
 while True:
         print("~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("Enter 'a' for actuation, 's' for stop, 'f' for forward, 'b' for backward, 'l' for left turn, 'r' for right turn")
+        
         ch = input("ch: ")  # Input is a string, don't convert it to int immedi>
         if ch == "s":
                 for channel in range(16):
                         set_pwm(channel, 50, 0)
                 print("STOP")
+        elif ch == "a":
+                pitchDeg = int(input("Pitch Degrees: "))
+                yawDeg = int(input("Yaw Degrees: "))
+                armHeight = int(input("Arm Height: "))
+                baseDeg = int(input("Base Degrees: "))
+                actuation(pitchDeg, yawDeg, armHeight, baseDeg)
         elif ch == "f":
                 frequency = int(input("Freq: "))
                 duty_cycle = int(input("DC%: "))
