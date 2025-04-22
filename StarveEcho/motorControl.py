@@ -20,49 +20,49 @@ def drive(L,R):
     pwm.frequency = 50  # Set frequency to 50Hz
 
     # Define PWM channels for BTS7960
-    lRPWM_CHANNEL = 12
-    lLPWM_CHANNEL = 13
-    rRPWM_CHANNEL = 14
-    rLPWM_CHANNEL = 15
+    lBKW = 12
+    lFWD = 13
+    rFWD = 14
+    rBKW = 15
     
     # ++: Both motors forward
     if L > 0 and R > 0:
-        pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
-        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
-        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
-        print("Forward! " + str(L) + " " + str(R))
+        pwm.channels[lFWD].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[lBKW].duty_cycle = 0
+        pwm.channels[rFWD].duty_cycle = int(abs(R) * 65535 / 100)
+        pwm.channels[rBKW].duty_cycle = 0
+        # print("Forward! " + str(L) + " " + str(R))
     
     # +-: Left motor forward, Right motor backward
     elif L > 0 and R < 0:
-        pwm.channels[lRPWM_CHANNEL].duty_cycle = int(L * 65535 / 100)
-        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
-        print("Turn Right! " + str(L) + " " + str(R))
+        pwm.channels[lFWD].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[lBKW].duty_cycle = 0
+        pwm.channels[rFWD].duty_cycle = 0
+        pwm.channels[rBKW].duty_cycle = int(abs(R) * 65535 / 100)
+        # print("Turn Right! " + str(L) + " " + str(R))
     
     # -+: Left motor backward, Right motor forward
     elif L < 0 and R > 0:
-        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
-        pwm.channels[rRPWM_CHANNEL].duty_cycle = int(R * 65535 / 100)
-        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
-        print("Turn Left! " + str(L) + " " + str(R))
+        pwm.channels[lFWD].duty_cycle = 0
+        pwm.channels[lBKW].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[rFWD].duty_cycle = int(abs(R) * 65535 / 100)
+        pwm.channels[rBKW].duty_cycle = 0
+        # print("Turn Left! " + str(L) + " " + str(R))
 
     # --: Both motors backward
     elif L < 0 and R < 0:
-        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[lLPWM_CHANNEL].duty_cycle = int(abs(L) * 65535 / 100)
-        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rLPWM_CHANNEL].duty_cycle = int(abs(R) * 65535 / 100)
-        print("Backwards! " + str(L) + " " + str(R))
+        pwm.channels[lFWD].duty_cycle = 0
+        pwm.channels[lBKW].duty_cycle = int(abs(L) * 65535 / 100)
+        pwm.channels[rFWD].duty_cycle = 0
+        pwm.channels[rBKW].duty_cycle = int(abs(R) * 65535 / 100)
+        # print("Backwards! " + str(L) + " " + str(R))
     # 00: Stop both motors
     else:
-        pwm.channels[lRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[lLPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rRPWM_CHANNEL].duty_cycle = 0
-        pwm.channels[rLPWM_CHANNEL].duty_cycle = 0
-        print("STOP! " + str(L) + " " + str(R))
+        pwm.channels[lBKW].duty_cycle = 0
+        pwm.channels[lFWD].duty_cycle = 0
+        pwm.channels[rFWD].duty_cycle = 0
+        pwm.channels[rBKW].duty_cycle = 0
+        # print("STOP! " + str(L) + " " + str(R))
 
 
 # Servo Motors
@@ -79,6 +79,3 @@ def actuation(pitchDeg, yawDeg, armHeight, baseDeg):
     move.servo[yaw].angle = yawDeg    
     move.servo[pitch].angle = pitchDeg
     move.servo[linact].angle = armHeight
-
-drive(.2,.2)
-
