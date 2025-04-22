@@ -191,43 +191,43 @@ def headlights(status):
         pixels.show()
 
 
-        if __name__ == "__main__":
-            print("Testing power_on function...")
-            power_on()
-            time.sleep(1)
+        
+print("Testing power_on function...")
+power_on()
+time.sleep(1)
 
-            print("Testing i2c_check function...")
-            for status in ["wait", "pass", "fail", "unknown"]:
-                print(f"  Status: {status}")
-                i2c_check(status)
-                time.sleep(1)
+print("Testing i2c_check function...")
+for status in ["wait", "pass", "fail", "unknown"]:
+    print(f"  Status: {status}")
+    i2c_check(status)
+    time.sleep(1)
 
-            print("Testing gps_check function...")
-            for status in ["wait", "pass", "fail", "unknown"]:
-                print(f"  Status: {status}")
-                gps_check(status)
-                time.sleep(1)
+print("Testing gps_check function...")
+for status in ["wait", "pass", "fail", "unknown"]:
+    print(f"  Status: {status}")
+    gps_check(status)
+    time.sleep(1)
 
-            print("Testing wifi_check function...")
-            for status in ["wait", "pass", "fail", "unknown"]:
-                print(f"  Status: {status}")
-                wifi_check(status)
-                time.sleep(1)
+print("Testing wifi_check function...")
+for status in ["wait", "pass", "fail", "unknown"]:
+    print(f"  Status: {status}")
+    wifi_check(status)
+    time.sleep(1)
 
-            print("Testing py_check function...")
-            for status in ["wait", "pass", "fail", "unknown"]:
-                print(f"  Status: {status}")
-                py_check(status)
-                time.sleep(1)
+print("Testing py_check function...")
+for status in ["wait", "pass", "fail", "unknown"]:
+    print(f"  Status: {status}")
+    py_check(status)
+    time.sleep(1)
 
-            print("Testing client_check function...")
-            for status in ["wait", "pass", "fail", "unknown"]:
-                print(f"  Status: {status}")
-                client_check(status)
-                time.sleep(1)
+print("Testing client_check function...")
+for status in ["wait", "pass", "fail", "unknown"]:
+    print(f"  Status: {status}")
+    client_check(status)
+    time.sleep(1)
 
-            print("Testing headlights function...")
-            for status in ["OFF", "ON", "unknown"]:
-                print(f"  Status: {status}")
-                headlights(status)
-                time.sleep(1)
+print("Testing headlights function...")
+for status in ["OFF", "ON", "unknown"]:
+    print(f"  Status: {status}")
+    headlights(status)
+    time.sleep(1)
