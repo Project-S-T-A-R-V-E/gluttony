@@ -1,13 +1,15 @@
 import socket  # Import the standard library socket module
+from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
-from flask import Flask, render_template
+from picamera2 import Picamera2
+import cv2
 import time
-import envSensor as env 
+import os
+import asyncio
+import envSensor as env
 import imu
 import gps
 import rangeFinder
-import os
-import asyncio
 import motorControl as mc
 
 voltage = 0
@@ -28,12 +30,29 @@ gps_lat = 0
 gps_lon = 0
 range_finder = 0
 
-
 # Flask Set up
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")  # Rename this variable to avoid conflict
-print("Flask SocketIO initialized")
-server_ip = "127.0.0.1"  # Use the standard library socket module
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Initialize the Raspberry Pi Camera
+picam2 = Picamera2()
+picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+picam2.start()
+
+# Camera feed generator
+def generate_camera_feed():
+    while True:
+        frame = picam2.capture_array()
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame = buffer.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        time.sleep(0.1)  # Adjust frame rate if needed
+
+# Route for the camera feed
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_camera_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # Main page
 @app.route("/")
@@ -42,7 +61,6 @@ def main():
     print("server started")
     # Dynamically get the host IP address
     server_ip = socket.gethostbyname(socket.gethostname())  # Use the standard library socket module
-    # print("Server IP Address: " + server_ip)
     return render_template("STARVE.html", api_key=api_key, server_ip=server_ip)
 
 # WebSocket Events
@@ -56,8 +74,6 @@ def handleDisconnect():
 
 @socketio.on('message')
 def handleMsg(msg):
-    # Step 1: Send Sensor Data over WebSocket
-    # print(msg)
     if msg == "Controller Connected":
         socketio.send([voltage, 
                    internal_temp, internal_humidity,
@@ -78,7 +94,6 @@ def handleMsg(msg):
                    mag_x, mag_y, mag_z,
                    gps_lat, gps_lon,
                    range_finder])
-    # print("Message Received: " + msg)
 
 # Async updates
 async def update_voltage():
@@ -154,4 +169,4 @@ if __name__ == "__main__":
     Thread(target=start_async_tasks, daemon=True).start()
 
     # Run the Flask-SocketIO server
-    socketio.run(app, host=server_ip, port=5000)
+    socketio.run(app, host="0.0.0.0", port=5000)
