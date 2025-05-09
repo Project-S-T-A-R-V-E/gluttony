@@ -5,7 +5,7 @@ import time
 import envSensor as env 
 import imu
 import gps
-import rangeFinder
+import rangefinder
 import os
 import asyncio
 import motorControl as mc
@@ -128,7 +128,7 @@ async def update_gps():
 async def update_rangefinder():
     global range_finder
     while True:
-        range_finder = rangeFinder.getLidarData()
+        range_finder = rangefinder.read_distance()
         await asyncio.sleep(5)
 
 # Run both coroutines concurrently

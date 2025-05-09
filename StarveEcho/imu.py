@@ -13,3 +13,4 @@ def getIMU(): #TODO: Implement actual sensor reading
     except OSError as e:
         print(f"Error accessing the sensor: {e}")
         return None
+#print(getIMU())
